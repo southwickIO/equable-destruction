@@ -2,8 +2,12 @@
  > v. 20230211
 
  Evercookie related research and scripts.
+<br>
  Research was framed around [OP's creation](https://github.com/samyk/evercookie).
-Run **evercookie.py**
+<br>
+Run **evercookie.py**.
+<br>
+This project is under development.
 
 ## Script Order
 
@@ -14,8 +18,8 @@ A[evercookie.py] -- 2--> C(next.py)
 A[evercookie.py] -- 3--> D(next.py)
 
 B(HTMLCookieFinder.py) ----> E[SpreadsheetHandler.py]
-C(next.py) ----> E[SpreadsheetHandler.py]
-D(next.py) ----> E[SpreadsheetHandler.py]
+C(placeholder.py) ----> E[SpreadsheetHandler.py]
+D(placeholder.py) ----> E[SpreadsheetHandler.py]
 ```
 
 ## Script Descriptions
