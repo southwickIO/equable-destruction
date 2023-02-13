@@ -1,13 +1,16 @@
 # equable-destruction
  > v. 20230211
 
- Evercookie related research and scripts.
+> author: github@southwick.io
+<br>
+
+## Summary
+### This app is under development.
+ Evercookie related research and scripts to find evercookies.
 <br>
  Research was framed around [OP's creation](https://github.com/samyk/evercookie).
 <br>
 Run **evercookie.py**.
-<br>
-This project is under development.
 
 ## Script Order
 
