@@ -5,7 +5,7 @@
 ###############################################################################
 # NAME: HTMLCookieFinder.py                                                   #
 #                                                                             #
-# VERSION: 20230211                                                           #
+# VERSION: 20230213                                                           #
 #                                                                             #
 # SYNOPSIS: Checks for simple HTML cookies from Chrome and Firefox on an      # 
 #           Ubuntu machine                                                    #
@@ -34,6 +34,7 @@
 #             use case, or application of this script.                        #
 #                                                                             #
 ###############################################################################
+
 
 
 #import dependencies

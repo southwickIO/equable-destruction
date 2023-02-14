@@ -1,9 +1,13 @@
+#!/usr/bin/env python3
+
+
+
 ###############################################################################
 # NAME: evercookie.py		                                                  #
 #                                                                             #
-# VERSION: 20230211                                                           #
+# VERSION: 20230213                                                           #
 #                                                                             #
-# SYNOPSIS: Main script that runs the other scripts.					      #
+# SYNOPSIS: Main script that runs the other scripts.					      # 
 #           			                                                      #
 #                                                                             #
 # DESCRIPTION: This script is part of a larger Evercookie checking            #
@@ -12,7 +16,8 @@
 #                                                                             #
 # INPUT: None.                                                                #
 #                                                                             #
-# OUTPUT: 1.) STDOUT                                                          #
+# OUTPUT: 1.) STDOUT														  #
+#		  2.) ../evercookies.xlsx"            	                              #
 #                                                                             #
 # PRE-RUNTIME NOTES: 1.) None.				                                  #
 #                                                                             #
@@ -26,59 +31,50 @@
 #             fitness, application, et cetera, for any particular purpose,    #
 #             use case, or application of this script.                        #
 #                                                                             #
-############################################################################### 
+###############################################################################
 
 
 
 #import dependencies
-import openpyxl #pip install openpyxl
+import HTMLCookieFinder
+import LocalShareObjectFinder
+import SpreadsheetHandler
 
 
 
-#stage column headers
-headers = ["host_keys", "name", "value", "path", "expires_utc"]
+#defined functions
+def main():
 
-
-
-#define functions
-def createspreadsheet():
-	'''
-		spreadsheet init
-	'''
-
-	#init workbook/sheet
-	workbook = openpyxl.Workbook()
-	sheet = workbook.active
+	#set the preadsheet file path
+	filepath = "../evercookies.xlsx"
 	
-	#push headers
-	for i, header in enumerate(headers):
-		sheet.cell(row=1, column=i+1, value=header)
-
-	#save workbook
-	workbook.save("../evercookies.xlsx")
 
 
+	#Run the first check
+	chromecookies = HTMLCookieFinder.htmlcookiefinder("chrome")
+	firefoxcookies = HTMLCookieFinder.htmlcookiefinder("firefox")
 
-def appendspreadsheet(filepath, listofcookies):
+	#Add the first check to the spreadsheet
+	SpreadsheetHandler.appendspreadsheet(filepath, chromecookies)
+	SpreadsheetHandler.appendspreadsheet(filepath, firefoxcookies)
 
-	#prep the spreadsheet
-	workbook = openpyxl.load_workbook(filepath)
-	sheet = workbook.active
-	numberofrows = sheet.max_row + 1
+	#stdout
+	print("\nHTML Cookie Finder complete")
+	print("Spreadsheet updated\n")
 
-	#append the spreadsheet
-	for entry in range(len(listofcookies)):
-		for i, header in enumerate(headers):
-			sheet.cell(row=numberofrows+entry, column=i+1, value=listofcookies[entry][i])
 
-	#save workbook
-	workbook.save("../evercookies.xlsx")
+
+	#Run the second check
+	LocalShareObjectFinder.lsocookiefinder()
+	solfiles = LocalShareObjectFinder.searchforsol()
+
+	#stdout
+	print("\nLSO Shared Object Finder complete")
+	print("Spreadsheet not updated\n")
 
 
 
 #entry point
 if __name__ == "__main__":
-	print("Please run this application from the main module. Exiting.")
-	exit()
-else:
-	pass
+	SpreadsheetHandler.createspreadsheet()
+	main()
