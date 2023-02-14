@@ -1,4 +1,4 @@
-# equable-destruction
+# Equable Destruction
  > v. 20230213
 
 > author: github@southwick.io
