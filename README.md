@@ -20,7 +20,6 @@ A[evercookie.py] -- 2 --> C(LocalShareObjectFinder.py)
 A[evercookie.py] -- 3 --> D(next.py)
 
 B(HTMLCookieFinder.py) ----> E[SpreadsheetHandler.py]
-C(LocalShareObjectFinder.py) -- X --> E[SpreadsheetHandler.py]
 D(placeholder.py) ----> E[SpreadsheetHandler.py]
 ```
 
