@@ -1,6 +1,7 @@
 # equable-destruction
 > v. 20230217
-> author: github@southwick.io
+
+> author: @southwickIO
 <br>
 
 ## Overview
