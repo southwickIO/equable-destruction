@@ -1,4 +1,4 @@
-# equable-destruction
+# Equable Destruction
 > v. 20230217
 
 > author: @southwickIO
@@ -79,6 +79,7 @@ F(FindLocalStorage.py) ----> H[SpreadsheetHandler.py]
 - [ ] Java JNLP PersistenceService
 - [ ] Java exploit CVE-2013-0422
 - [ ] Update FindHTMLCookies.py to include Microsoft Edge
+- [ ] Update scripts to include Snap and Dpkg for all tested browsers
 - [ ] Port for Windows and MacOS
 
 ## Resources
