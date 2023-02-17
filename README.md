@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-
-
-
 # equable-destruction
 > v. 20230217
-=======
-# Equable Destruction
- > v. 20230213
->>>>>>> b167b9fe41b9a9822485bb33b888586bd6aeb500
-
 > author: github@southwick.io
 <br>
 
