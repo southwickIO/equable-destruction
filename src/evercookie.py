@@ -5,7 +5,7 @@
 ###############################################################################
 # NAME: evercookie.py		                                                  #
 #                                                                             #
-# VERSION: 20230213                                                           #
+# VERSION: 20230217                                                           #
 #                                                                             #
 # SYNOPSIS: Main script that runs the other scripts.					      # 
 #           			                                                      #
@@ -36,8 +36,9 @@
 
 
 #import dependencies
-import HTMLCookieFinder
-import LocalShareObjectFinder
+import FindHTMLCookies
+import FindLocalShareObjects
+import FindIsolatedStorage
 import SpreadsheetHandler
 
 
@@ -51,8 +52,8 @@ def main():
 
 
 	#Run the first check
-	chromecookies = HTMLCookieFinder.htmlcookiefinder("chrome")
-	firefoxcookies = HTMLCookieFinder.htmlcookiefinder("firefox")
+	chromecookies = FindHTMLCookies.htmlcookiefinder("chrome")
+	firefoxcookies = FindHTMLCookies.htmlcookiefinder("firefox")
 
 	#Add the first check to the spreadsheet
 	SpreadsheetHandler.appendspreadsheet(filepath, chromecookies)
@@ -65,11 +66,20 @@ def main():
 
 
 	#Run the second check
-	LocalShareObjectFinder.lsocookiefinder()
-	solfiles = LocalShareObjectFinder.searchforsol()
+	FindLocalShareObjects.lsocookiefinder()
+	solfiles = FindLocalShareObjects.searchforsol()
 
 	#stdout
 	print("\nLSO Shared Object Finder complete")
+	print("Spreadsheet not updated\n")
+
+
+
+	#Run the third check
+	FindIsolatedStorage.isolatedstoragefinder()
+
+	#stdout
+	print("\nIsolated Storage Finder not complete")
 	print("Spreadsheet not updated\n")
 
 

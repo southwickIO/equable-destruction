@@ -3,12 +3,11 @@
 
 
 ###############################################################################
-# NAME: HTMLCookieFinder.py                                                   #
+# NAME: FindIsolatedStorage.py                                                #
 #                                                                             #
-# VERSION: 20230213                                                           #
+# VERSION: 20230217                                                           #
 #                                                                             #
-# SYNOPSIS: Checks for simple HTML cookies from Chrome and Firefox on an      # 
-#           Ubuntu machine                                                    #
+# SYNOPSIS: Checks for Isolated Storage artifacts from Microsoft Silverlight  #                                                   #
 #                                                                             #
 # DESCRIPTION: This script is part of a larger Evercookie checking            #
 #              application for Ubuntu machines. This project was created to   #
@@ -19,9 +18,7 @@
 # OUTPUT: 1.) STDOUT                                                          #
 #                                                                             #
 # PRE-RUNTIME NOTES: 1.) This script checks for cookies from default          #
-#                        locations. Google was installed through apt and      #
-#                        Firefox was installed through snap. Adjust your      #
-#                        filepaths as needed.                                 #
+#                        locations.                                           #
 #                                                                             #
 # AUTHORS: @southwickio                                                       #
 #                                                                             #
@@ -37,48 +34,36 @@
 
 
 
-#import dependencies
-import os
-import sqlite3
+'''
+Isolated Storage is a Microsoft Silverlight storing mechanism. This storage 
+mechanism is called Isolated Storage because the store is partitioned, and a 
+Silverlight application has access only to certain parts.
+
+You cannot access any old stored data. The store is partitioned per user.
+'''
+
+
+
+'''
+After searching my file system and Microsoft documentation, I
+Isolated storage is a Microsft feature not specifically tied to Silverlight, 
+although that is what it was known for. Isolated Storage is available for 
+devleopers who develop extension/apps for Edge and Windows so I am still a bit 
+suspicious that I didn't find anything even though I know Silverlight is defunct.
+
+This script is not developed because no evidence of Isolated Storage for 
+Microsoft Edge on Ubuntu 22.04 was found.
+'''
 
 
 
 #define functions
-def htmlcookiefinder(browser):
-
-    chromecookies = []
-    firefoxcookies = []
-
-    #set cookie path depending on browser
-    if browser == 'chrome':
-        cookiefile = os.path.expanduser('~/.config/google-chrome/Profile 1/Cookies')
-    elif browser == 'firefox':
-        cookiefile = os.path.expanduser('~/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/cookies.sqlite')
-    else:
-        raise Exception('Invalid browser name')
-
-    #connect to database
-    conn = sqlite3.connect(cookiefile)
-    c = conn.cursor()
-
-    #search database
-    if browser == "chrome":
-        c.execute('SELECT host_key, name, value, path, expires_utc FROM cookies')
-        for row in c.fetchall():
-            host_key, name, value, path, expires_utc = row
-            chromecookies.append(row)
-
-        return chromecookies
-
-    elif browser == "firefox":
-        c.execute('SELECT host, name, value, path, expiry FROM moz_cookies')
-        for row in c.fetchall():
-            host_key, name, value, path, expires_utc = row
-            firefoxcookies.append(row)
-
-        return firefoxcookies
+def isolatedstoragefinder():
+	pass
 
 
+
+#entry point
 if __name__ == "__main__":
     print("Please run this application from the main module. Exiting.")
     exit()

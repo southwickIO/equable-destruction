@@ -3,9 +3,9 @@
 
 
 ###############################################################################
-# NAME: LocalShareObjectFinder.py                                             #
+# NAME: FindLocalShareObjects.py                                              #
 #                                                                             #
-# VERSION: 20230213                                                           #
+# VERSION: 20230216                                                           #
 #                                                                             #
 # SYNOPSIS: Main script that runs the other scripts.					      #
 #           			                                                      #
