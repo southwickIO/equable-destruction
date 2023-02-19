@@ -1,5 +1,5 @@
 # Equable Destruction
-> v. 20230217
+> v. 20230219
 
 > author: @southwickIO
 <br>
@@ -18,8 +18,8 @@ graph LR
 A[evercookie.py] -- 1 --> B(FindHTMLCookies.py)
 A[evercookie.py] -- 2 --> C(FindLocalShareObjects.py)
 A[evercookie.py] -- 3 --> D(FindIsolatedStorage.py)
-A[evercookie.py] -- 4 --> E(FindSessionStorage.py)
-A[evercookie.py] -- 5 --> F(FindLocalStorage.py)
+A[evercookie.py] -- 10 --> E(FindSessionStorage.py)
+A[evercookie.py] -- 11 --> F(FindLocalStorage.py)
 
 G[leveldb-dump.py] --> E(FindSessionStorage.py)
 G[leveldb-dump.py] --> F(FindLocalStorage.py)
@@ -63,7 +63,7 @@ F(FindLocalStorage.py) ----> H[SpreadsheetHandler.py]
 - [x] evercookie.py (Main)
 - [x] Standard HTTP Cookies
 - [x] Flash Local Shared Objects
-- [ ] Silverlight Isolated Storage
+- [x] Silverlight Isolated Storage
 - [ ] CSS History Knocking
 - [ ] Storing cookies in HTTP ETags (Backend server required)
 - [ ] Storing cookies in Web cache (Backend server required)
