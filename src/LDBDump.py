@@ -3,12 +3,11 @@
 
 
 ###############################################################################
-# NAME: evercookie.py		                                                  #
+# NAME: LDBDump.py                                                            #
 #                                                                             #
-# VERSION: 20230217                                                           #
+# VERSION: 20230220                                                           #
 #                                                                             #
-# SYNOPSIS: Main script that runs the other scripts.					      # 
-#           			                                                      #
+# SYNOPSIS: LDB File Handler                                                  #
 #                                                                             #
 # DESCRIPTION: This script is part of a larger Evercookie checking            #
 #              application for Ubuntu machines. This project was created to   #
@@ -16,10 +15,9 @@
 #                                                                             #
 # INPUT: None.                                                                #
 #                                                                             #
-# OUTPUT: 1.) STDOUT														  #
-#		  2.) ../evercookies.xlsx"            	                              #
+# OUTPUT: 1.) STDOUT                                                          #
 #                                                                             #
-# PRE-RUNTIME NOTES: 1.) None.				                                  #
+# PRE-RUNTIME NOTES: 1.) This script handles LDB directories                  #
 #                                                                             #
 # AUTHORS: @southwickio                                                       #
 #                                                                             #
@@ -35,72 +33,31 @@
 
 
 
-#import dependencies
-import FindHTMLCookies
-import FindLocalShareObjects
-import FindIsolatedStorage
-import FindSessionStorage
-import SpreadsheetHandler
+# import dependencies
+import leveldb
 
 
 
-#defined functions
-def main():
+#define functions
+def openLDBDir(filepath):
 
-	#set the preadsheet file path
-	filepath = "../evercookies.xlsx"
-	
+    #opens the directory of the LDB Files
+    db = leveldb.LevelDB(filepath)
 
-
-	#Run the first check
-	chromecookies = FindHTMLCookies.htmlcookiefinder("chrome")
-	firefoxcookies = FindHTMLCookies.htmlcookiefinder("firefox")
-
-	#Add the first check to the spreadsheet
-	SpreadsheetHandler.appendspreadsheet(filepath, chromecookies, "FindHTMLCookies")
-	SpreadsheetHandler.appendspreadsheet(filepath, firefoxcookies"FindHTMLCookies")
-
-	#stdout
-	print("\nHTML Cookie Finder complete")
-	print("Spreadsheet updated\n")
+    return db
 
 
 
-	#Run the second check
-	FindLocalShareObjects.lsocookiefinder()
-	solfiles = FindLocalShareObjects.searchforsol()
-
-	#stdout
-	print("\nLSO Shared Object Finder complete")
-	print("Spreadsheet not updated\n")
+def getKVPairs(db):
+    
+    #get the key/value pairs of entries in LDB directory
+    for key, value in db.RangeIter():
+    print(key.decode(), value.decode())
 
 
 
-	#Run the third check
-	FindIsolatedStorage.isolatedstoragefinder()
-
-	#stdout
-	print("\nIsolated Storage Finder not complete")
-	print("Spreadsheet not updated\n")
-
-
-
-	#Run the 10th check
-	chromesessionstorage = FindSessionStorage.sessioncookiefinder("chrome")
-	firefoxsessionstorage = FindSessionStorage.sessioncookiefinder("firefox")
-	iesessionstorage = FindSessionStorage.sessioncookiefinder("ie")
-
-	#Add the first check to the spreadsheet
-
-	#stdout
-
-
-
-	#Run the 11th check
-
-
-
-#entry point
 if __name__ == "__main__":
-	SpreadsheetHandler.createspreadsheet()
-	main()
+    print("Please run this application from the main module. Exiting.")
+    exit()
+else:
+    pass

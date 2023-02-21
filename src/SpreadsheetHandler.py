@@ -63,17 +63,44 @@ def createspreadsheet():
 
 
 
-def appendspreadsheet(filepath, listofcookies):
-
+def stageSpreadsheet(filepath):
+	
 	#prep the spreadsheet
 	workbook = openpyxl.load_workbook(filepath)
 	sheet = workbook.active
+	
+
+	return sheet
+
+def addspace(sheet, maxrow):
+	sheet.cell(row=maxrow, column=1, value="")
+
+	return sheet
+
+
+
+
+def addtitle():
+	pass
+
+
+
+def appendspreadsheet(filepath, listofcookies, title):
+
+	#prep the spreadsheet
+	sheet = stageSpreadsheet(filepath)
+	sheet = addSpace(sheet, sheet.max_row + 1, title)
+	sheet = addTitle(sheet, sheet.max_row + 1, title)
 	numberofrows = sheet.max_row + 1
 
 	#append the spreadsheet
 	for entry in range(len(listofcookies)):
 		for i, header in enumerate(headers):
-			sheet.cell(row=numberofrows+entry, column=i+1, value=listofcookies[entry][i])
+
+			if title == "FindHTMLCookies":
+				sheet.cell(row=numberofrows+entry, column=i+1, value=listofcookies[entry][i])
+			elif title == "FindSessionStorage":
+				pass
 
 	#save workbook
 	workbook.save("../evercookies.xlsx")

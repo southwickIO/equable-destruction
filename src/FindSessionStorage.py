@@ -3,12 +3,11 @@
 
 
 ###############################################################################
-# NAME: evercookie.py		                                                  #
+# NAME: FindSessionStorage.py                                                 #
 #                                                                             #
-# VERSION: 20230217                                                           #
+# VERSION: 20230220                                                           #
 #                                                                             #
-# SYNOPSIS: Main script that runs the other scripts.					      # 
-#           			                                                      #
+# SYNOPSIS: Checks for session specific cookies                               #
 #                                                                             #
 # DESCRIPTION: This script is part of a larger Evercookie checking            #
 #              application for Ubuntu machines. This project was created to   #
@@ -16,10 +15,10 @@
 #                                                                             #
 # INPUT: None.                                                                #
 #                                                                             #
-# OUTPUT: 1.) STDOUT														  #
-#		  2.) ../evercookies.xlsx"            	                              #
+# OUTPUT: 1.) STDOUT                                                          #
 #                                                                             #
-# PRE-RUNTIME NOTES: 1.) None.				                                  #
+# PRE-RUNTIME NOTES: 1.) This script checks for cookies from default          #
+#                        locations.                                           #
 #                                                                             #
 # AUTHORS: @southwickio                                                       #
 #                                                                             #
@@ -34,73 +33,51 @@
 ###############################################################################
 
 
+'''
+The following file paths are checked for session storage.
 
+Firefox:
+    /home/moustache/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/sessionstore.jsonlz4
+    /home/moustache/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/sessionstore-backups/
+Chrome:
+IE:
+Remember IE and Chrome are installed with deb and Firefox is installed with snap.
+'''
 #import dependencies
-import FindHTMLCookies
-import FindLocalShareObjects
-import FindIsolatedStorage
-import FindSessionStorage
-import SpreadsheetHandler
+import LDBDump
+
+
+#define functions
+def setBrowser():
+    return sessionfile
 
 
 
-#defined functions
-def main():
+def sessioncookiefinder(browser):
 
-	#set the preadsheet file path
-	filepath = "../evercookies.xlsx"
-	
+    chromesessioncookies = []
+    firefoxsessioncookies = []
+    iesessioncookies = []
 
+    #set cookie path depending on browser
+    if browser == 'chrome':
+        sessiondirectory = os.path.expanduser('~/.config/google-chrome/Profile 1/Session Storage/')
+    elif browser == 'firefox':
+        sessiondirectory = os.path.expanduser('~/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/cookies.sqlite')
+    elif browser == 'ie':
+        sessiondirectory = os.path.expanduser('~/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/cookies.sqlite')
+    else:
+        raise Exception('Invalid browser name')
 
-	#Run the first check
-	chromecookies = FindHTMLCookies.htmlcookiefinder("chrome")
-	firefoxcookies = FindHTMLCookies.htmlcookiefinder("firefox")
-
-	#Add the first check to the spreadsheet
-	SpreadsheetHandler.appendspreadsheet(filepath, chromecookies, "FindHTMLCookies")
-	SpreadsheetHandler.appendspreadsheet(filepath, firefoxcookies"FindHTMLCookies")
-
-	#stdout
-	print("\nHTML Cookie Finder complete")
-	print("Spreadsheet updated\n")
-
-
-
-	#Run the second check
-	FindLocalShareObjects.lsocookiefinder()
-	solfiles = FindLocalShareObjects.searchforsol()
-
-	#stdout
-	print("\nLSO Shared Object Finder complete")
-	print("Spreadsheet not updated\n")
-
-
-
-	#Run the third check
-	FindIsolatedStorage.isolatedstoragefinder()
-
-	#stdout
-	print("\nIsolated Storage Finder not complete")
-	print("Spreadsheet not updated\n")
-
-
-
-	#Run the 10th check
-	chromesessionstorage = FindSessionStorage.sessioncookiefinder("chrome")
-	firefoxsessionstorage = FindSessionStorage.sessioncookiefinder("firefox")
-	iesessionstorage = FindSessionStorage.sessioncookiefinder("ie")
-
-	#Add the first check to the spreadsheet
-
-	#stdout
-
-
-
-	#Run the 11th check
-
-
+'''
+firefox session store in 2 areas
+sessionstore-backups/
+sessionstore.jsonlz4
+'''
 
 #entry point
 if __name__ == "__main__":
-	SpreadsheetHandler.createspreadsheet()
-	main()
+    print("Please run this application from the main module. Exiting.")
+    exit()
+else:
+    pass
