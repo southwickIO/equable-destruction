@@ -5,7 +5,7 @@
 ###############################################################################
 # NAME: spreadsheethandler.py                                                 #
 #                                                                             #
-# VERSION: 20230220                                                           #
+# VERSION: 20230221                                                           #
 #                                                                             #
 # SYNOPSIS: Handles spreadsheet tasks.									      #
 #           			                                                      #
@@ -52,73 +52,86 @@ def createSpreadsheet(filepath):
 	workbook = openpyxl.Workbook()
 	sheet = workbook.active
 
-
-	
 	#push headers
 	for i, header in enumerate(headers):
 		sheet.cell(row=1, column=i+1, value=header)
 
-
-
 	#save workbook
 	workbook.save(filepath)
-
-
 
 	return workbook
 
 
 
-def stageSpreadsheet(filepath, workbook):
+def stageSpreadsheet(spreadsheetinfo):
 	
+
+
+	return sheet
+
+
+
+def addSpace(filepath, times=1):
+
 	#prep the spreadsheet
 	workbook = openpyxl.load_workbook(filepath)
 	sheet = workbook.active
-	
 
-	return sheet
-
-
-
-def addSpace(sheet, maxrow):
-	sheet.cell(row=maxrow + 1, column=1, value="")
-
-	return sheet
-
-
-
-def addTitle(sheet, maxrow, title):
-	sheet.cell(row=maxrow + 1, column=1, value=title)
-
-	return sheet
-
-
-
-def appendSpreadsheet(filepath, listofcookies, workbook, title):
-
-	#prep the spreadsheet
-	sheet = stageSpreadsheet(filepath, workbook)
-	sheet = addSpace(sheet, sheet.max_row)
-	sheet = addTitle(sheet, sheet.max_row, title)
-	numberofrows = sheet.max_row + 1
-
-	#append the spreadsheet
-	for entry in range(len(listofcookies)):
-		for i, header in enumerate(headers):
-
-			if title == "FindHTMLCookies":
-				sheet.cell(row=numberofrows+entry, column=i+1, value=listofcookies[entry][i])
-			elif title == "FindSessionStorage":
-				pass
-				#do stuff
-
-
-
-				#all entries already complete and don't need to be part of the loop
-				continue 
+	#add the space
+	for i in range(times):
+		sheet.cell(row=sheet.max_row + 1, column=1, value=" ")
 
 	#save workbook
 	workbook.save(filepath)
+
+
+
+def addTitle(filepath, title):
+
+	#prep the spreadsheet
+	workbook = openpyxl.load_workbook(filepath)
+	sheet = workbook.active
+
+	#add the title
+	sheet.cell(row=sheet.max_row + 1, column=1, value=title)
+
+	#save workbook
+	workbook.save(filepath)
+
+
+
+def addData(filepath, title, listofcookies):
+
+	#prep the spreadsheet
+	workbook = openpyxl.load_workbook(filepath)
+	sheet = workbook.active
+
+	numberofrows = sheet.max_row + 1
+
+	#append the data
+	for entry in range(len(listofcookies)):
+		
+		for i, header in enumerate(headers):
+
+			#branch for FindHTMLCookies data
+			if "FindHTMLCookies" in title:
+				sheet.cell(row=numberofrows + entry, column=i + 1, value = listofcookies[entry][i])
+			
+			#branch for FindSessionStorage data
+			elif "FindSessionStorage" in title:
+				pass
+				#do stuff
+
+	#save workbook
+	workbook.save(filepath)
+
+
+
+def appendSpreadsheet(filepath, title, listofcookies):
+
+	addSpace(filepath, 10)
+	addTitle(filepath, title)
+	addData(filepath, title, listofcookies)
 
 
 

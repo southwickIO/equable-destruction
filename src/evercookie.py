@@ -5,7 +5,7 @@
 ###############################################################################
 # NAME: evercookie.py		                                                  #
 #                                                                             #
-# VERSION: 20230220                                                           #
+# VERSION: 20230221                                                           #
 #                                                                             #
 # SYNOPSIS: Main script that runs the other scripts.					      # 
 #           			                                                      #
@@ -44,25 +44,16 @@ import SpreadsheetHandler
 
 
 
-#set the spreadsheet file path. This must be an absolute filepath
-filepath = "/home/moustache/Desktop/evercookies.xlsx"
-
-
-
-#create the spreadsheet
-workbook = SpreadsheetHandler.createSpreadsheet(filepath)
-
-
 #defined functions
-def main(workbook):
+def main():
 
 	#Run the first check
 	chromecookies = FindHTMLCookies.htmlcookiefinder("chrome")
 	firefoxcookies = FindHTMLCookies.htmlcookiefinder("firefox")
 
 	#Add the first check to the spreadsheet
-	SpreadsheetHandler.appendSpreadsheet(filepath, chromecookies, workbook, "FindHTMLCookies - Chrome")
-	SpreadsheetHandler.appendSpreadsheet(filepath, firefoxcookies, workbook, "FindHTMLCookies - FireFox")
+	SpreadsheetHandler.appendSpreadsheet(filepath, "FindHTMLCookies - Chrome", chromecookies)
+	SpreadsheetHandler.appendSpreadsheet(filepath, "FindHTMLCookies - FireFox", firefoxcookies)
 
 	#stdout
 	print("\nHTML Cookie Finder complete")
@@ -95,9 +86,9 @@ def main(workbook):
 	edgesessionstorage = FindSessionStorage.sessioncookiefinder("edge")
 
 	#Add the tenth check to the spreadsheet
-	#SpreadsheetHandler.appendSpreadsheet(filepath, chromesessionstorage, "FindSessionStorage - Chrome")
-	#SpreadsheetHandler.appendSpreadsheet(filepath, firefoxsessionstorage, "FindSessionStorage - FireFox")
-	#SpreadsheetHandler.appendSpreadsheet(filepath, edgesessionstorage, "FindSessionStorage - FireFox")
+	#SpreadsheetHandler.appendSpreadsheet(filepath, "FindSessionStorage - Chrome", chromesessionstorage)
+	#SpreadsheetHandler.appendSpreadsheet(filepath, "FindSessionStorage - FireFox", firefoxsessionstorage)
+	#SpreadsheetHandler.appendSpreadsheet(filepath, "FindSessionStorage - Edge", edgesessionstorage)
 
 	#stdout
 	print("\nSession Storage Finder complete")
@@ -110,7 +101,13 @@ def main(workbook):
 
 #entry point
 if __name__ == "__main__":
-	main(workbook)
+	#set the spreadsheet file path. This must be an absolute filepath
+	filepath = "/home/moustache/Desktop/evercookies.xlsx"
+
+	#create the spreadsheet
+	workbook = SpreadsheetHandler.createSpreadsheet(filepath)
+
+	main()
 else:
 	print("This is the main entry point of the application. Please run instead of importing.")
 	exit()

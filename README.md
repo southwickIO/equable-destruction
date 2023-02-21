@@ -1,6 +1,6 @@
 
 # Equable Destruction
-> v. 20230220
+> v. 20230221
 
 > author: @southwickIO
 <br>
@@ -14,8 +14,7 @@ Research was framed around [OP's creation](https://github.com/samyk/evercookie).
 <br>
 
 ## Current task:
-- [ ] Working on FindSessionStorage.py and getting LDBDump.py nd MozLZ$a.py incorporated.
-- [ ] Figure out why spreadsheet handler isn't updating correctly. Scope?
+- [ ] Working on FindSessionStorage.py and getting LDBDump.py nd MozLZ4a.py incorporated.
 
 ## Script Order
 ```mermaid
@@ -61,7 +60,8 @@ F(FindLocalStorage.py) ----> H[SpreadsheetHandler.py]
  4. Firefox was installed with snap
  5. Review each script before first runtime and make changes as needed.
  6. evercookie.py needs to be run as sudo if you want LocalShareObjectFinder.py to have permissions to check everywhere for LSO objects. Otherwise, its just looking for user LSO objects.
- 7. Be sure to change your firefox profile in the file paths. It doesn't have a standard and the one use for this script was ```qkwknqsj.default```. Yours will be different
+ 7. Be sure to change your firefox profile in the file paths. It doesn't have a standard and the one use for this script was ```qkwknqsj.default```. Yours will be different.
+ 8. Chrome (and most likely other browsers) will need to be turned off in order for these scripts to run.
 
  ## Helpful Commands
  1. `sudo grep -rnw . -e "<search term>"` - will return any file in the current directory that has \<search term\>
@@ -77,7 +77,7 @@ F(FindLocalStorage.py) ----> H[SpreadsheetHandler.py]
 - [ ] HTTP Strict Transport Security (HSTS) Pinning (works in Incognito mode)
 - [ ] window.name caching
 - [ ] Internet Explorer userData storage
-- [x] HTML5 Session Storage
+- [ ] HTML5 Session Storage <-----
 - [ ] HTML5 Local Storage <-----
 - [ ] HTML5 Global Storage <-----
 - [ ] HTML5 Database Storage via SQLite
@@ -90,6 +90,7 @@ F(FindLocalStorage.py) ----> H[SpreadsheetHandler.py]
 - [ ] Port for Windows and MacOS
 - [ ] Create import module of filepaths a user can draw from
 - [ ] Look at extension storage
+- [x] Figure out why spreadsheet handler isn't appending correctly. Could be a saving issue.
 
 ## Resources
 1. [View, edit, and delete cookies in Microsoft Edge](https://learn.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/storage/cookies)

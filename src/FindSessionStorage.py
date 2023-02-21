@@ -5,7 +5,7 @@
 ###############################################################################
 # NAME: FindSessionStorage.py                                                 #
 #                                                                             #
-# VERSION: 20230220                                                           #
+# VERSION: 20230221                                                           #
 #                                                                             #
 # SYNOPSIS: Checks for session specific cookies                               #
 #                                                                             #
