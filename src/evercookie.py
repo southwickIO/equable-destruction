@@ -5,7 +5,7 @@
 ###############################################################################
 # NAME: evercookie.py		                                                  #
 #                                                                             #
-# VERSION: 20230217                                                           #
+# VERSION: 20230220                                                           #
 #                                                                             #
 # SYNOPSIS: Main script that runs the other scripts.					      # 
 #           			                                                      #
@@ -44,21 +44,25 @@ import SpreadsheetHandler
 
 
 
+#set the spreadsheet file path. This must be an absolute filepath
+filepath = "/home/moustache/Desktop/evercookies.xlsx"
+
+
+
+#create the spreadsheet
+workbook = SpreadsheetHandler.createSpreadsheet(filepath)
+
+
 #defined functions
-def main():
-
-	#set the preadsheet file path
-	filepath = "../evercookies.xlsx"
-	
-
+def main(workbook):
 
 	#Run the first check
 	chromecookies = FindHTMLCookies.htmlcookiefinder("chrome")
 	firefoxcookies = FindHTMLCookies.htmlcookiefinder("firefox")
 
 	#Add the first check to the spreadsheet
-	SpreadsheetHandler.appendspreadsheet(filepath, chromecookies, "FindHTMLCookies")
-	SpreadsheetHandler.appendspreadsheet(filepath, firefoxcookies"FindHTMLCookies")
+	SpreadsheetHandler.appendSpreadsheet(filepath, chromecookies, workbook, "FindHTMLCookies - Chrome")
+	SpreadsheetHandler.appendSpreadsheet(filepath, firefoxcookies, workbook, "FindHTMLCookies - FireFox")
 
 	#stdout
 	print("\nHTML Cookie Finder complete")
@@ -88,12 +92,16 @@ def main():
 	#Run the 10th check
 	chromesessionstorage = FindSessionStorage.sessioncookiefinder("chrome")
 	firefoxsessionstorage = FindSessionStorage.sessioncookiefinder("firefox")
-	iesessionstorage = FindSessionStorage.sessioncookiefinder("ie")
+	edgesessionstorage = FindSessionStorage.sessioncookiefinder("edge")
 
-	#Add the first check to the spreadsheet
+	#Add the tenth check to the spreadsheet
+	#SpreadsheetHandler.appendSpreadsheet(filepath, chromesessionstorage, "FindSessionStorage - Chrome")
+	#SpreadsheetHandler.appendSpreadsheet(filepath, firefoxsessionstorage, "FindSessionStorage - FireFox")
+	#SpreadsheetHandler.appendSpreadsheet(filepath, edgesessionstorage, "FindSessionStorage - FireFox")
 
 	#stdout
-
+	print("\nSession Storage Finder complete")
+	print("Spreadsheet updated\n")
 
 
 	#Run the 11th check
@@ -102,5 +110,7 @@ def main():
 
 #entry point
 if __name__ == "__main__":
-	SpreadsheetHandler.createspreadsheet()
-	main()
+	main(workbook)
+else:
+	print("This is the main entry point of the application. Please run instead of importing.")
+	exit()

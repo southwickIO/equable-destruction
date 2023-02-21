@@ -33,47 +33,80 @@
 ###############################################################################
 
 
+
 '''
 The following file paths are checked for session storage.
 
-Firefox:
-    /home/moustache/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/sessionstore.jsonlz4
-    /home/moustache/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/sessionstore-backups/
-Chrome:
-IE:
-Remember IE and Chrome are installed with deb and Firefox is installed with snap.
+Firefox (decipher with MozLZ4a.py):
+    ~/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/sessionstore.jsonlz4
+    ~/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/sessionstore-backups/
+Chrome (decipher with LDBDump.py):
+    ~/.config/google-chrome/Profile 1/Session Storage/
+Edge (decipher with LDBDump.py):
+    ~/.config/microsoft-edge/Default/Session Storage/
+Remember, Edge and Chrome are installed with deb and Firefox is installed with snap.
 '''
+
+
+
 #import dependencies
 import LDBDump
+import os
 
 
 #define functions
-def setBrowser():
-    return sessionfile
+def setBrowser(browser):
+
+    #create session directory list
+    sessiondirectory = []
+
+    #set cookie path depending on browser
+    if browser == 'chrome':
+        sessiondirectory.append(os.path.expanduser('~/.config/google-chrome/Profile 1/Session Storage/'))
+    elif browser == 'firefox':
+        sessiondirectory.append(os.path.expanduser('~/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/sessionstore.jsonlz4'))
+        sessiondirectory.append(os.path.expanduser('~/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/sessionstore-backups/'))
+    elif browser == 'edge':
+        sessiondirectory.append(os.path.expanduser('~/.config/microsoft-edge/Default/Session Storage/'))
+    else:
+        raise Exception('Invalid browser name')
+
+
+
+    return sessiondirectory
 
 
 
 def sessioncookiefinder(browser):
 
+    # init variables
     chromesessioncookies = []
     firefoxsessioncookies = []
     iesessioncookies = []
 
-    #set cookie path depending on browser
+    #set the session directory(s)
+    sessiondirs = setBrowser(browser)
+
     if browser == 'chrome':
-        sessiondirectory = os.path.expanduser('~/.config/google-chrome/Profile 1/Session Storage/')
+        
+        #open the associated LDB directory
+        db = LDBDump.openLDBDir(sessiondirs[0])
+
+        #read from the associated LDB directory
+        LDBDump.getKVPairs(db)
+
     elif browser == 'firefox':
-        sessiondirectory = os.path.expanduser('~/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/cookies.sqlite')
-    elif browser == 'ie':
-        sessiondirectory = os.path.expanduser('~/snap/firefox/common/.mozilla/firefox/qkwknqsj.default/cookies.sqlite')
+        pass
+    elif browser == 'edge':
+        pass
     else:
         raise Exception('Invalid browser name')
 
-'''
-firefox session store in 2 areas
-sessionstore-backups/
-sessionstore.jsonlz4
-'''
+
+
+
+
+
 
 #entry point
 if __name__ == "__main__":

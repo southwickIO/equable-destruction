@@ -15,6 +15,7 @@ Research was framed around [OP's creation](https://github.com/samyk/evercookie).
 
 ## Current task:
 - [ ] Working on FindSessionStorage.py and getting LDBDump.py nd MozLZ$a.py incorporated.
+- [ ] Figure out why spreadsheet handler isn't updating correctly. Scope?
 
 ## Script Order
 ```mermaid
@@ -61,6 +62,9 @@ F(FindLocalStorage.py) ----> H[SpreadsheetHandler.py]
  5. Review each script before first runtime and make changes as needed.
  6. evercookie.py needs to be run as sudo if you want LocalShareObjectFinder.py to have permissions to check everywhere for LSO objects. Otherwise, its just looking for user LSO objects.
  7. Be sure to change your firefox profile in the file paths. It doesn't have a standard and the one use for this script was ```qkwknqsj.default```. Yours will be different
+
+ ## Helpful Commands
+ 1. `sudo grep -rnw . -e "<search term>"` - will return any file in the current directory that has \<search term\>
 
 ## Tasks
 - [x] evercookie.py (Main)

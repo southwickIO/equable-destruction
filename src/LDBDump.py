@@ -39,10 +39,10 @@ import leveldb
 
 
 #define functions
-def openLDBDir(filepath):
+def openLDBDir(dirpath):
 
     #opens the directory of the LDB Files
-    db = leveldb.LevelDB(filepath)
+    db = leveldb.LevelDB(dirpath)
 
     return db
 
@@ -52,7 +52,7 @@ def getKVPairs(db):
     
     #get the key/value pairs of entries in LDB directory
     for key, value in db.RangeIter():
-    print(key.decode(), value.decode())
+        print(key.decode(), value.decode())
 
 
 

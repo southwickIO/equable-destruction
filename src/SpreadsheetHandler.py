@@ -5,7 +5,7 @@
 ###############################################################################
 # NAME: spreadsheethandler.py                                                 #
 #                                                                             #
-# VERSION: 20230213                                                           #
+# VERSION: 20230220                                                           #
 #                                                                             #
 # SYNOPSIS: Handles spreadsheet tasks.									      #
 #           			                                                      #
@@ -16,7 +16,8 @@
 #                                                                             #
 # INPUT: None.                                                                #
 #                                                                             #
-# OUTPUT: 1.) ../evercookies.xlsx                                             #
+# OUTPUT: 1.) $filepath														  #
+#		  2.) stdout			                                              #
 #                                                                             #
 # PRE-RUNTIME NOTES: 1.) None.				                                  #
 #                                                                             #
@@ -35,7 +36,7 @@
 
 
 #import dependencies
-import openpyxl #pip install openpyxl
+import openpyxl #pip3 install openpyxl
 
 
 
@@ -45,25 +46,30 @@ headers = ["host_keys", "name", "value", "path", "expires_utc"]
 
 
 #define functions
-def createspreadsheet():
-	'''
-		spreadsheet init
-	'''
+def createSpreadsheet(filepath):
 
 	#init workbook/sheet
 	workbook = openpyxl.Workbook()
 	sheet = workbook.active
+
+
 	
 	#push headers
 	for i, header in enumerate(headers):
 		sheet.cell(row=1, column=i+1, value=header)
 
+
+
 	#save workbook
-	workbook.save("../evercookies.xlsx")
+	workbook.save(filepath)
 
 
 
-def stageSpreadsheet(filepath):
+	return workbook
+
+
+
+def stageSpreadsheet(filepath, workbook):
 	
 	#prep the spreadsheet
 	workbook = openpyxl.load_workbook(filepath)
@@ -72,25 +78,28 @@ def stageSpreadsheet(filepath):
 
 	return sheet
 
-def addspace(sheet, maxrow):
-	sheet.cell(row=maxrow, column=1, value="")
+
+
+def addSpace(sheet, maxrow):
+	sheet.cell(row=maxrow + 1, column=1, value="")
 
 	return sheet
 
 
 
+def addTitle(sheet, maxrow, title):
+	sheet.cell(row=maxrow + 1, column=1, value=title)
 
-def addtitle():
-	pass
+	return sheet
 
 
 
-def appendspreadsheet(filepath, listofcookies, title):
+def appendSpreadsheet(filepath, listofcookies, workbook, title):
 
 	#prep the spreadsheet
-	sheet = stageSpreadsheet(filepath)
-	sheet = addSpace(sheet, sheet.max_row + 1, title)
-	sheet = addTitle(sheet, sheet.max_row + 1, title)
+	sheet = stageSpreadsheet(filepath, workbook)
+	sheet = addSpace(sheet, sheet.max_row)
+	sheet = addTitle(sheet, sheet.max_row, title)
 	numberofrows = sheet.max_row + 1
 
 	#append the spreadsheet
@@ -101,9 +110,15 @@ def appendspreadsheet(filepath, listofcookies, title):
 				sheet.cell(row=numberofrows+entry, column=i+1, value=listofcookies[entry][i])
 			elif title == "FindSessionStorage":
 				pass
+				#do stuff
+
+
+
+				#all entries already complete and don't need to be part of the loop
+				continue 
 
 	#save workbook
-	workbook.save("../evercookies.xlsx")
+	workbook.save(filepath)
 
 
 
