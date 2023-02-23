@@ -5,7 +5,7 @@
 ###############################################################################
 # NAME: evercookie.py		                                                  #
 #                                                                             #
-# VERSION: 20230221                                                           #
+# VERSION: 20230223                                                           #
 #                                                                             #
 # SYNOPSIS: Main script that runs the other scripts.					      # 
 #           			                                                      #
@@ -17,7 +17,7 @@
 # INPUT: None.                                                                #
 #                                                                             #
 # OUTPUT: 1.) STDOUT														  #
-#		  2.) ../evercookies.xlsx"            	                              #
+#		  2.) ../evercookies.xlsx             	                              #
 #                                                                             #
 # PRE-RUNTIME NOTES: 1.) None.				                                  #
 #                                                                             #
@@ -52,8 +52,8 @@ def main():
 	firefoxcookies = FindHTMLCookies.htmlcookiefinder("firefox")
 
 	#Add the first check to the spreadsheet
-	SpreadsheetHandler.appendSpreadsheet(filepath, "FindHTMLCookies - Chrome", chromecookies)
-	SpreadsheetHandler.appendSpreadsheet(filepath, "FindHTMLCookies - FireFox", firefoxcookies)
+	#SpreadsheetHandler.appendSpreadsheet(filepath, "FindHTMLCookies - Chrome", chromecookies)
+	#SpreadsheetHandler.appendSpreadsheet(filepath, "FindHTMLCookies - FireFox", firefoxcookies)
 
 	#stdout
 	print("\nHTML Cookie Finder complete")
@@ -82,13 +82,13 @@ def main():
 
 	#Run the 10th check
 	chromesessionstorage = FindSessionStorage.sessioncookiefinder("chrome")
-	firefoxsessionstorage = FindSessionStorage.sessioncookiefinder("firefox")
+	#firefoxsessionstorage = FindSessionStorage.sessioncookiefinder("firefox")
 	edgesessionstorage = FindSessionStorage.sessioncookiefinder("edge")
 
 	#Add the tenth check to the spreadsheet
-	#SpreadsheetHandler.appendSpreadsheet(filepath, "FindSessionStorage - Chrome", chromesessionstorage)
+	SpreadsheetHandler.appendSpreadsheet(filepath, "FindSessionStorage - Chrome", chromesessionstorage)
 	#SpreadsheetHandler.appendSpreadsheet(filepath, "FindSessionStorage - FireFox", firefoxsessionstorage)
-	#SpreadsheetHandler.appendSpreadsheet(filepath, "FindSessionStorage - Edge", edgesessionstorage)
+	SpreadsheetHandler.appendSpreadsheet(filepath, "FindSessionStorage - Edge", edgesessionstorage)
 
 	#stdout
 	print("\nSession Storage Finder complete")

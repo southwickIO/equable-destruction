@@ -5,7 +5,7 @@
 ###############################################################################
 # NAME: spreadsheethandler.py                                                 #
 #                                                                             #
-# VERSION: 20230221                                                           #
+# VERSION: 20230223                                                           #
 #                                                                             #
 # SYNOPSIS: Handles spreadsheet tasks.									      #
 #           			                                                      #
@@ -119,8 +119,9 @@ def addData(filepath, title, listofcookies):
 			
 			#branch for FindSessionStorage data
 			elif "FindSessionStorage" in title:
-				pass
-				#do stuff
+				sheet.cell(row=numberofrows + entry, column=2, value = listofcookies[entry][0])
+				sheet.cell(row=numberofrows + entry, column=3, value = listofcookies[entry][1])
+				continue
 
 	#save workbook
 	workbook.save(filepath)

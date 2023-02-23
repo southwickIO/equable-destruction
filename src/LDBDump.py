@@ -5,7 +5,7 @@
 ###############################################################################
 # NAME: LDBDump.py                                                            #
 #                                                                             #
-# VERSION: 20230221                                                           #
+# VERSION: 20230223                                                           #
 #                                                                             #
 # SYNOPSIS: LDB File Handler                                                  #
 #                                                                             #
@@ -35,6 +35,7 @@
 
 # import dependencies
 import leveldb
+import plyvel
 
 
 
@@ -42,7 +43,7 @@ import leveldb
 def openLDBDir(dirpath):
 
     #opens the directory of the LDB Files
-    db = leveldb.LevelDB(dirpath)
+    db = plyvel.DB(dirpath)
 
     return db
 
@@ -50,9 +51,15 @@ def openLDBDir(dirpath):
 
 def getKVPairs(db):
     
+    cookies = []
+
     #get the key/value pairs of entries in LDB directory
-    for key, value in db.RangeIter():
-        print(key.decode(), value.decode())
+    for key, value in db:
+        cookies.append([key,value])
+
+
+
+    return cookies
 
 
 

@@ -5,7 +5,7 @@
 ###############################################################################
 # NAME: FindSessionStorage.py                                                 #
 #                                                                             #
-# VERSION: 20230221                                                           #
+# VERSION: 20230223                                                           #
 #                                                                             #
 # SYNOPSIS: Checks for session specific cookies                               #
 #                                                                             #
@@ -82,7 +82,7 @@ def sessioncookiefinder(browser):
     # init variables
     chromesessioncookies = []
     firefoxsessioncookies = []
-    iesessioncookies = []
+    edgesessioncookies = []
 
     #set the session directory(s)
     sessiondirs = setBrowser(browser)
@@ -92,13 +92,23 @@ def sessioncookiefinder(browser):
         #open the associated LDB directory
         db = LDBDump.openLDBDir(sessiondirs[0])
 
-        #read from the associated LDB directory
-        LDBDump.getKVPairs(db)
+        #dump the associated LDB directory
+        chromesessioncookies = LDBDump.getKVPairs(db)
+
+        return chromesessioncookies
 
     elif browser == 'firefox':
         pass
-    elif browser == 'edge':
-        pass
+    elif browser ==  "edge":
+
+        #open the associated LDB directory
+        db = LDBDump.openLDBDir(sessiondirs[0])
+
+        #dump the associated LDB directory
+        edgesessioncookies = LDBDump.getKVPairs(db)
+
+        return edgesessioncookies
+
     else:
         raise Exception('Invalid browser name')
 

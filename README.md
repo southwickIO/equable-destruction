@@ -1,6 +1,6 @@
 
 # Equable Destruction
-> v. 20230221
+> v. 20230223
 
 > author: @southwickIO
 <br>
@@ -46,6 +46,7 @@ F(FindLocalStorage.py) ----> H[SpreadsheetHandler.py]
 ## Dependencies
  1. openpyxl
  2. lz4
+ 3. plyvel (check if still needed)
 
 ## Notable file paths (Ubuntu 22.04)
 1. ~/.config/google-chrome/\<profile\>/Cookies
