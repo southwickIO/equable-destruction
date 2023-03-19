@@ -1,6 +1,6 @@
 
 # Equable Destruction
-> v. 20230223
+> v. 20230319
 
 > author: @southwickIO
 <br>
@@ -92,6 +92,7 @@ F(FindLocalStorage.py) ----> H[SpreadsheetHandler.py]
 - [ ] Create import module of filepaths a user can draw from
 - [ ] Look at extension storage
 - [x] Figure out why spreadsheet handler isn't appending correctly. Could be a saving issue.
+- [ ] Look into cache busting
 
 ## Resources
 1. [View, edit, and delete cookies in Microsoft Edge](https://learn.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/storage/cookies)
